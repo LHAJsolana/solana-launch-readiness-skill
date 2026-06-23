@@ -1,0 +1,21 @@
+{
+  "name": "solana-launch-readiness-skill",
+  "version": "1.0.0",
+  "description": "Solana AI Kit skill for launch readiness reviews, security triage, RPC resilience, wallet UX, monitoring, incident response, and founder GTM.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lint:structure": "node --test tests/structure.test.js tests/skill-routing.test.js"
+  },
+  "keywords": [
+    "solana",
+    "ai-skill",
+    "launch-readiness",
+    "mainnet",
+    "wallet-ux",
+    "rpc",
+    "security"
+  ]
+}
+
