@@ -64,6 +64,25 @@ Suggested interpretation:
 - Below 60: not ready for mainnet.
 - Any blocker: no-go until resolved or explicitly accepted by accountable humans.
 
+## GO / CONDITIONAL GO / NO-GO Framework
+
+Give a launch decision after scoring. The decision must reflect both score and severity. Do not let a high score hide a blocker.
+
+| Verdict | Use When | Required Language |
+| --- | --- | --- |
+| GO | Score is 85 or higher, no blockers, no unresolved high-risk launch-critical items, monitoring and incident owners are identified | "Ready to launch with listed follow-ups." |
+| CONDITIONAL GO | Score is 70-84, no unresolved blockers, remaining high/medium risks have owners and deadlines, manual verification items are explicit | "Launch only if the conditions below are completed or formally accepted by accountable owners." |
+| NO-GO | Any blocker exists, score is below 70, secrets are exposed, authority controls are unclear for value-bearing flows, transaction reliability is unsafe, or incident detection is absent | "Do not launch until these blockers are resolved." |
+
+Decision rules:
+
+- Any committed private key, seed phrase, production secret, or unsafe `.env` file forces `NO-GO`.
+- Any user-funds flow without credible confirmation, expiry, and failure handling forces `NO-GO`.
+- Any token launch with unknown mint/freeze/metadata authority status is at best `CONDITIONAL GO`; if authority risk is material and undisclosed, use `NO-GO`.
+- Missing monitoring can be `CONDITIONAL GO` for a tiny private beta, but `NO-GO` for a public launch with user funds or token distribution.
+- Unverified external claims, partnerships, audits, grants, TVL, or returns must not improve the verdict.
+- If the requested launch scope is narrowed, state the exact reduced scope that makes the verdict possible.
+
 ## Blocker Criteria
 
 Mark as `blocker` when you find:
@@ -100,6 +119,7 @@ Use `needs manual verification` when:
 
 - Project classification and launch surface.
 - Readiness score with category breakdown.
+- GO / CONDITIONAL GO / NO-GO verdict with conditions.
 - Blockers and high-priority risks first.
 - Manual verification list.
 - Technical checklist.
@@ -138,4 +158,3 @@ Use `needs manual verification` when:
 ## Next 7 Days
 | Day | Action | Owner | Done when |
 ```
-

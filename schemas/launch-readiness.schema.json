@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/LHAJsolana/solana-launch-readiness-skill/schemas/launch-readiness.schema.json",
+  "title": "Solana Launch Readiness Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project",
+    "review",
+    "score",
+    "verdict",
+    "categories",
+    "blockers",
+    "risks",
+    "manualVerification",
+    "recommendedActions"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "targetNetwork"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": ["dApp", "token", "NFT", "DeFi", "game", "payment app", "AI agent", "infra tool", "unknown"]
+        },
+        "targetNetwork": {
+          "type": "string",
+          "enum": ["localnet", "devnet", "testnet", "mainnet", "unknown"]
+        },
+        "targetLaunchDate": { "type": ["string", "null"] },
+        "repositoryUrl": { "type": ["string", "null"] },
+        "reviewedCommit": { "type": ["string", "null"] }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewedAt", "reviewer", "scope"],
+      "properties": {
+        "reviewedAt": { "type": "string" },
+        "reviewer": { "type": "string" },
+        "scope": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "max"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "max": { "type": "integer", "const": 100 }
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["GO", "CONDITIONAL_GO", "NO_GO"]
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "score", "max", "evidence", "gaps"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "Security",
+              "Transaction reliability",
+              "Infra/RPC",
+              "Wallet UX",
+              "Testing",
+              "Monitoring/analytics",
+              "Docs/support/GTM"
+            ]
+          },
+          "score": { "type": "integer", "minimum": 0 },
+          "max": { "type": "integer", "minimum": 1 },
+          "evidence": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "gaps": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "manualVerification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item", "reason", "owner"],
+        "properties": {
+          "item": { "type": "string" },
+          "reason": { "type": "string" },
+          "owner": { "type": "string" }
+        }
+      }
+    },
+    "recommendedActions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["priority", "action", "owner", "doneWhen"],
+        "properties": {
+          "priority": {
+            "type": "string",
+            "enum": ["blocker", "high", "medium", "low"]
+          },
+          "action": { "type": "string" },
+          "owner": { "type": "string" },
+          "doneWhen": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "title", "evidence", "impact", "recommendation"],
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["blocker", "high", "medium", "low", "informational"]
+        },
+        "title": { "type": "string" },
+        "evidence": { "type": "string" },
+        "impact": { "type": "string" },
+        "recommendation": { "type": "string" }
+      }
+    }
+  }
+}
+

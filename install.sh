@@ -28,7 +28,7 @@ fi
 
 mkdir -p "$DEST_DIR"
 
-for path in README.md LICENSE package.json skill agents commands rules examples tests; do
+for path in README.md LICENSE CHANGELOG.md CONTRIBUTING.md package.json skill agents commands rules examples tests schemas demo references .github; do
   if [ -e "$ROOT_DIR/$path" ]; then
     cp -R "$ROOT_DIR/$path" "$DEST_DIR/"
   fi
@@ -36,4 +36,3 @@ done
 
 echo "Installed solana-launch-readiness-skill to: $DEST_DIR"
 echo "Entry point: $DEST_DIR/skill/SKILL.md"
-

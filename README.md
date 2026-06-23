@@ -1,5 +1,9 @@
 # solana-launch-readiness-skill
 
+[![Test](https://github.com/LHAJsolana/solana-launch-readiness-skill/actions/workflows/test.yml/badge.svg)](https://github.com/LHAJsolana/solana-launch-readiness-skill/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Solana AI Kit](https://img.shields.io/badge/Solana%20AI%20Kit-skill-14F195)](skill/SKILL.md)
+
 Production-ready Solana AI Kit skill that turns coding agents into launch readiness reviewers for Solana founders.
 
 ## Problem
@@ -19,6 +23,7 @@ This skill gives an AI coding agent a structured, practical workflow for reviewi
 
 - Classifies the project and launch surface area.
 - Produces a 0-100 launch readiness score.
+- Produces a GO / CONDITIONAL GO / NO-GO verdict.
 - Finds blocker, high, medium, and low severity risks.
 - Reviews security triage, transaction reliability, RPC readiness, wallet UX, testing, monitoring, incident response, docs, support, and GTM materials.
 - Generates reusable outputs: readiness report, technical checklist, security checklist, RPC checklist, wallet UX checklist, monitoring plan, incident response plan, founder launch pack, risk register, and post-launch review.
@@ -38,6 +43,9 @@ solana-launch-readiness-skill/
   commands/
   rules/
   examples/
+  schemas/
+  demo/
+  references/
   tests/
 ```
 
@@ -70,6 +78,30 @@ Create an incident response plan for a Solana app where transactions are failing
 ```text
 Prepare a founder launch pack for a Solana grant submission and public launch thread.
 ```
+
+### Codex Example
+
+```text
+Use the solana-launch-readiness skill. Audit this repo for a public Solana mainnet launch, classify the project, score readiness, produce a GO / CONDITIONAL GO / NO-GO verdict, and give me blockers plus a 7-day action plan.
+```
+
+### Claude Code Example
+
+```text
+Load the solana-launch-readiness skill from skill/SKILL.md. Use progressive loading only. Review this Solana repo for wallet UX, RPC reliability, security triage, monitoring, incident response, and founder launch risks.
+```
+
+## Demo
+
+- [Input example](demo/input-example.md)
+- [Output report](demo/output-report.md)
+- [Before and after](demo/before-after.md)
+
+## Differentiation
+
+This skill is broader than a transaction reliability checklist. Transaction landing matters, but public Solana launches also fail because of authority ambiguity, token metadata mistakes, wallet signing confusion, RPC provider limits, missing alerts, weak support processes, no incident playbook, and overconfident founder messaging.
+
+`solana-launch-readiness-skill` reviews the full launch surface: code, wallet UX, transaction confirmation, priority fees, RPC resilience, token authority risk, monitoring, incident response, docs, support, and GTM. It gives agents a repeatable launch review workflow rather than a single narrow optimization pass.
 
 ## Design Principles
 
@@ -126,4 +158,3 @@ npm run lint:structure
 ## License
 
 MIT
-
